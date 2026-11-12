@@ -1,0 +1,751 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
+
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #38332e;
+  background: #ffffff;
+
+  --cream: #f4efe7;
+  --white: #ffffff;
+  --gray: #e8e6e1;
+  --brown: #a58b70;
+  --dark: #38332e;
+  --muted: #81796f;
+  --border: #e5e0d8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  background: var(--white);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+}
+
+/* NAVBAR */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-container {
+  max-width: 1440px;
+  margin: auto;
+  padding: 20px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+}
+
+.logo span {
+  color: var(--brown);
+}
+
+.nav-links {
+  display: flex;
+  gap: 38px;
+}
+
+.nav-links a {
+  font-size: 13px;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--dark);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.icon-button,
+.cart-button,
+.mobile-menu {
+  background: transparent;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-button {
+  gap: 8px;
+}
+
+.cart-button span {
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--cream);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+/* GENERAL */
+
+.home-page {
+  overflow: visible;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: var(--brown);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.2px;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 650px;
+  background: var(--cream);
+  padding: 80px 8%;
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  align-items: center;
+  gap: 65px;
+}
+
+.hero-copy {
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(44px, 5.4vw, 76px);
+  font-weight: 500;
+  line-height: 1.13;
+  letter-spacing: -2.5px;
+  margin: 25px 0;
+}
+
+.hero h1 em {
+  color: var(--brown);
+  font-weight: 500;
+}
+
+.hero-copy > p {
+  max-width: 430px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
+  margin-bottom: 32px;
+}
+
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 25px;
+  padding: 16px 23px;
+  background: var(--dark);
+  color: white;
+  font-size: 12px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.hero-button:hover {
+  background: var(--brown);
+  transform: translateY(-3px);
+}
+
+.hero-note {
+  display: flex;
+  gap: 22px;
+  margin-top: 65px;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+
+.hero-visual {
+  position: relative;
+  min-height: 450px;
+}
+
+.hero-image-frame {
+  width: 88%;
+  height: 460px;
+  margin-left: auto;
+  overflow: hidden;
+}
+
+.hero-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-floating-card {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  background: white;
+  padding: 25px 30px;
+  min-width: 230px;
+  box-shadow: 0 12px 40px rgba(56, 51, 46, 0.08);
+}
+
+.hero-floating-card span {
+  color: var(--brown);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+.hero-floating-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  margin: 9px 0 5px;
+}
+
+.hero-floating-card p {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.hero-image-number {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  color: var(--brown);
+}
+
+/* BRAND MESSAGE */
+
+.brand-message {
+  text-align: center;
+  padding: 95px 20px;
+}
+
+.brand-message span {
+  color: var(--brown);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.brand-message p {
+  max-width: 720px;
+  margin: 20px auto 0;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(25px, 3.5vw, 40px);
+  line-height: 1.5;
+}
+
+.brand-message em {
+  color: var(--brown);
+}
+
+/* CATEGORY SECTION */
+
+.category-section {
+  max-width: 1440px;
+  margin: auto;
+  padding: 50px 8% 110px;
+}
+
+.section-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 35px;
+}
+
+.section-top h2,
+.spotlight-heading h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.text-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--brown);
+  font-size: 12px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.category-image {
+  height: 360px;
+  position: relative;
+  overflow: hidden;
+  background: var(--gray);
+}
+
+.category-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(.2,.7,.2,1);
+}
+
+.category-card:hover img {
+  transform: scale(1.06);
+}
+
+.category-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 21px;
+  font-weight: 500;
+  margin-top: 18px;
+}
+
+.category-arrow {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  width: 42px;
+  height: 42px;
+  background: white;
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s;
+}
+
+.category-card:hover .category-arrow {
+  transform: rotate(45deg);
+}
+
+/* PRODUCT SPOTLIGHT */
+
+.spotlight-section {
+  padding: 90px 8%;
+  background: #f7f6f3;
+}
+
+.spotlight-heading {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.spotlight-heading p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+  margin-top: 12px;
+}
+
+.spotlight-showcase {
+  max-width: 1100px;
+  min-height: 480px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 45px;
+  padding: 45px;
+  transition: background-color 0.5s ease;
+}
+
+.spotlight-image {
+  height: 390px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.spotlight-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.spotlight-info {
+  max-width: 380px;
+}
+
+.spotlight-info h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 500;
+  margin: 20px 0 15px;
+}
+
+.spotlight-info p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.spotlight-info h3 {
+  font-size: 19px;
+  margin: 24px 0 10px;
+}
+
+.selected-color {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.product-selector {
+  display: flex;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.selector-dot {
+  width: 29px;
+  height: 29px;
+  padding: 3px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 50%;
+}
+
+.selector-dot.active {
+  border-color: var(--dark);
+}
+
+.selector-dot span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.spotlight-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--dark);
+  color: white;
+  padding: 15px 20px;
+  font-size: 11px;
+  margin-top: 5px;
+  transition: background 0.3s;
+}
+
+.spotlight-button:hover {
+  background: var(--brown);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .hero {
+    gap: 35px;
+    padding: 65px 5%;
+  }
+
+  .hero-image-frame {
+    height: 380px;
+  }
+
+  .category-image {
+    height: 280px;
+  }
+
+  .spotlight-showcase {
+    padding: 30px;
+    gap: 25px;
+  }
+}
+
+@media (max-width: 650px) {
+  .nav-container {
+    padding: 17px 5%;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+
+  .nav-actions {
+    gap: 15px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 65px 7% 45px;
+  }
+
+  .hero h1 {
+    font-size: 46px;
+  }
+
+  .hero-visual {
+    min-height: 360px;
+  }
+
+  .hero-image-frame {
+    width: 90%;
+    height: 350px;
+  }
+
+  .hero-floating-card {
+    bottom: 10px;
+    padding: 18px;
+  }
+
+  .hero-note {
+    margin-top: 35px;
+  }
+
+  .brand-message {
+    padding: 65px 25px;
+  }
+
+  .category-section {
+    padding: 50px 6% 75px;
+  }
+
+  .section-top h2,
+  .spotlight-heading h2 {
+    font-size: 30px;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .category-image {
+    height: 350px;
+  }
+
+  .spotlight-section {
+    padding: 65px 6%;
+  }
+
+  .spotlight-showcase {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .spotlight-image {
+    height: 300px;
+  }
+
+  .spotlight-info {
+    padding: 10px;
+  }
+
+  .spotlight-info h2 {
+    font-size: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* SCROLL-DRIVEN PRODUCT SHOWCASE */
+
+.scroll-showcase-section {
+  height: 300vh;
+  position: relative;
+}
+
+.scroll-showcase-sticky {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding: 35px 7%;
+}
+
+.scroll-product-stage {
+  width: 100%;
+  min-height: 570px;
+  height: 75vh;
+  max-height: 720px;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  overflow: hidden;
+}
+
+.scroll-product-image {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 45px;
+  overflow: hidden;
+}
+
+.scroll-product-image img {
+  width: 100%;
+  height: 100%;
+  max-height: 550px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.scroll-product-info {
+  padding: 55px;
+}
+
+.scroll-product-info h2 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.5rem, 4vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 22px 0;
+  color: #38332e;
+}
+
+.scroll-product-info p {
+  max-width: 360px;
+  line-height: 1.8;
+  color: #71675d;
+}
+
+.scroll-product-info h3 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 25px 0 12px;
+  color: #38332e;
+}
+
+.scroll-product-controls {
+  display: flex;
+  gap: 12px;
+  margin: 30px 0 20px;
+}
+
+.scroll-product-dot {
+  width: 9px;
+  height: 9px;
+  border: none;
+  border-radius: 50%;
+  background: #b9aa98;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.scroll-product-dot.active {
+  background: #38332e;
+  transform: scale(1.4);
+}
+
+.scroll-product-progress {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 260px;
+  margin-bottom: 30px;
+  font-size: 11px;
+  color: #71675d;
+}
+
+.scroll-product-progress > div {
+  height: 2px;
+  flex: 1;
+  background: rgba(56, 51, 46, 0.2);
+}
+
+.scroll-product-progress > div > div {
+  height: 100%;
+  background: #38332e;
+}
+
+@media (max-width: 768px) {
+  .scroll-showcase-section {
+    height: 240vh;
+  }
+
+  .scroll-showcase-sticky {
+    padding: 20px;
+  }
+
+  .scroll-product-stage {
+    height: 82vh;
+    min-height: 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  .scroll-product-image {
+    min-height: 0;
+    padding: 20px;
+  }
+
+  .scroll-product-info {
+    padding: 10px 25px 25px;
+  }
+
+  .scroll-product-info h2 {
+    font-size: 2rem;
+    margin: 12px 0;
+  }
+
+  .scroll-product-info p {
+    font-size: 13px;
+  }
+
+  .scroll-product-info h3 {
+    margin: 12px 0;
+  }
+
+  .scroll-product-controls {
+    margin: 18px 0 12px;
+  }
+
+  .scroll-product-progress {
+    margin-bottom: 18px;
+  }
+}
