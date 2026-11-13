@@ -1,6 +1,22 @@
 
 const mongoose = require("mongoose");
 
+const colorSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    hex: {
+      type: String,
+      required: true,
+      match: /^#[0-9A-Fa-f]{6}$/,
+    },
+  },
+  { _id: false }
+);
+
 const productSchema = new mongoose.Schema(
   {
     name: {
@@ -27,6 +43,16 @@ const productSchema = new mongoose.Schema(
 
     images: {
       type: [String],
+      default: [],
+    },
+
+    sizes: {
+      type: [String],
+      default: [],
+    },
+
+    colors: {
+      type: [colorSchema],
       default: [],
     },
 

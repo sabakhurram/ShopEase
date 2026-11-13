@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../services/api";
 import "./Products.css";
-
+import { Link } from "react-router-dom";
 function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -114,20 +114,25 @@ const filteredProducts = products
    <section className="products-grid">
   {filteredProducts.length > 0 ? (
     filteredProducts.map((product) => (
-      <article className="product-card" key={product._id}>
-        <div className="product-image">
-          <img
-            src={product.images?.[0] || "/placeholder.png"}
-            alt={product.name}
-          />
-        </div>
+     <Link
+  to={`/products/${product._id}`}
+  className="product-card-link"
+>
+  <article className="product-card">
+    <div className="product-image">
+      <img
+        src={product.images?.[0] || "/placeholder.png"}
+        alt={product.name}
+      />
+    </div>
 
-        <div className="product-info">
-          <p>{product.category}</p>
-          <h2>{product.name}</h2>
-          <span>${product.price}</span>
-        </div>
-      </article>
+    <div className="product-info">
+      <p>{product.category}</p>
+      <h2>{product.name}</h2>
+      <span>${Number(product.price).toFixed(2)}</span>
+    </div>
+  </article>
+</Link>
     ))
   ) : (
     <p className="no-products">

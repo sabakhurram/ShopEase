@@ -8,10 +8,10 @@ import {
   Menu,
   X,
 } from "lucide-react";
-
+import { useCart } from "../context/CartContext";
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-
+const { cartCount } = useCart();
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -59,14 +59,15 @@ function Navbar() {
             <UserRound size={20} />
           </Link>
 
-          <Link
-            to="/cart"
-            className="cart-button"
-            aria-label="Shopping cart"
-          >
-            <ShoppingBag size={20} />
-            <span>0</span>
-          </Link>
+       <Link to="/cart" className="navbar-cart-link">
+  <ShoppingBag size={21} />
+
+  {cartCount > 0 && (
+    <span className="cart-count-badge">
+      {cartCount}
+    </span>
+  )}
+</Link>
 
           {/* Mobile Menu Toggle */}
           <button
