@@ -10,13 +10,26 @@ import {
   Truck,
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
+import { placeOrder } from "../services/api";
 import "./Checkout.css";
 
 const Checkout = () => {
-  const { cartItems } = useCart();
+ const { cartItems, clearCart } = useCart();
+const { user, token } = useAuth();
   const [paymentMethod, setPaymentMethod] = useState("cod");
   const [formMessage, setFormMessage] = useState("");
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+const [orderPlaced, setOrderPlaced] = useState(null);
+const [formData, setFormData] = useState({
+  fullName: user?.name || "",
+  email: user?.email || "",
+  phone: "",
+  address: "",
+  city: "",
+  postalCode: "",
+  deliveryNotes: "",
+});
   const subtotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -24,13 +37,101 @@ const Checkout = () => {
 
   const formatPrice = (price) => `$${price.toFixed(2)}`;
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setFormMessage(
-      "Your details are valid. Order processing will be connected next."
-    );
-  };
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
+  setFormMessage("");
+  setIsSubmitting(true);
+
+  try {
+    const orderData = {
+      customer: {
+        name: formData.fullName.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+      },
+
+      shippingAddress: {
+        address: formData.address.trim(),
+        city: formData.city.trim(),
+        postalCode: formData.postalCode.trim(),
+        deliveryInstructions: formData.deliveryNotes.trim(),
+      },
+
+      items: cartItems.map((item) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+        color: item.color,
+        size: item.size,
+      })),
+
+      paymentMethod: paymentMethod.toUpperCase(),
+    };
+
+    const response = await placeOrder(orderData, token);
+
+    setOrderPlaced(response.order);
+    clearCart();
+  } catch (error) {
+    setFormMessage(error.message || "Unable to place your order.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+const handleChange = (event) => {
+  const { name, value } = event.target;
+
+  setFormData((currentData) => ({
+    ...currentData,
+    [name]: value,
+  }));
+};
+if (orderPlaced) {
+  return (
+    <main className="checkout-page">
+      <div className="checkout-empty order-success">
+        <div className="checkout-empty-icon">
+          <PackageCheck size={38} />
+        </div>
+
+        <p className="checkout-eyebrow">ORDER CONFIRMED</p>
+
+        <h1>Thank You for Your Order!</h1>
+
+        <p>
+          Your order has been placed successfully. We're looking
+          forward to delivering your ShopEase purchase.
+        </p>
+
+        <div className="order-confirmation-details">
+          <div>
+            <span>Order Number</span>
+            <strong>{orderPlaced._id}</strong>
+          </div>
+
+          <div>
+            <span>Order Total</span>
+            <strong>{formatPrice(orderPlaced.total)}</strong>
+          </div>
+
+          <div>
+            <span>Payment Method</span>
+            <strong>Cash on Delivery</strong>
+          </div>
+
+          <div>
+            <span>Order Status</span>
+            <strong>{orderPlaced.orderStatus}</strong>
+          </div>
+        </div>
+
+        <Link to="/products" className="checkout-back-button">
+          Continue Shopping
+        </Link>
+      </div>
+    </main>
+  );
+}
   if (cartItems.length === 0) {
     return (
       <main className="checkout-page">
@@ -84,6 +185,8 @@ const Checkout = () => {
                     type="text"
                     placeholder="Enter your full name"
                     autoComplete="name"
+                    value={formData.fullName}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -96,6 +199,8 @@ const Checkout = () => {
                     type="email"
                     placeholder="you@example.com"
                     autoComplete="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -108,6 +213,8 @@ const Checkout = () => {
                     type="tel"
                     placeholder="+92 3XX XXXXXXX"
                     autoComplete="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -132,6 +239,8 @@ const Checkout = () => {
                     type="text"
                     placeholder="House number, street and area"
                     autoComplete="street-address"
+                    value={formData.address}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -144,6 +253,8 @@ const Checkout = () => {
                     type="text"
                     placeholder="Enter your city"
                     autoComplete="address-level2"
+                    value={formData.city}
+                   onChange={handleChange}
                     required
                   />
                 </div>
@@ -156,6 +267,8 @@ const Checkout = () => {
                     type="text"
                     placeholder="Postal code"
                     autoComplete="postal-code"
+                    value={formData.postalCode}
+                    onChange={handleChange}
                   />
                 </div>
 
@@ -163,12 +276,14 @@ const Checkout = () => {
                   <label htmlFor="deliveryNotes">
                     Delivery Instructions (Optional)
                   </label>
-                  <textarea
-                    id="deliveryNotes"
-                    name="deliveryNotes"
-                    placeholder="Any directions or special delivery instructions?"
-                    rows={3}
-                  />
+                <textarea
+                id="deliveryNotes"
+                name="deliveryNotes"
+                  placeholder="Any directions or special delivery instructions?"
+                 rows={3}
+                   value={formData.deliveryNotes}
+                   onChange={handleChange}
+                   />
                 </div>
               </div>
             </section>
@@ -206,9 +321,13 @@ const Checkout = () => {
               </p>
             )}
 
-            <button type="submit" className="place-order-button">
-              Place Order
-            </button>
+           <button
+  type="submit"
+  className="place-order-button"
+  disabled={isSubmitting}
+>
+  {isSubmitting ? "Placing Order..." : "Place Order"}
+</button>
 
             <p className="checkout-secure-note">
               <LockKeyhole size={14} />

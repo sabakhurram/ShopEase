@@ -974,3 +974,19 @@ button {
   text-align: left;
   cursor: pointer;
 }
+.navbar-orders-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 16px;
+  padding: 12px 0;
+  border-top: 1px solid #eee9e2;
+  color: #38332e;
+  font-size: 12px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navbar-orders-link:hover {
+  color: #a58b70;
+}

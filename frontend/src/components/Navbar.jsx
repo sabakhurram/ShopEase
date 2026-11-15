@@ -8,6 +8,7 @@ import {
   Menu,
   X,
   LogOut,
+  Package,
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
@@ -48,7 +49,11 @@ function Navbar() {
           <NavLink to="/products">
             Shop
           </NavLink>
-
+{isAuthenticated && (
+  <NavLink to="/orders">
+    My Orders
+  </NavLink>
+)}
           <Link to="/#categories">Categories</Link>
 
           <Link to="/#about">About</Link>
@@ -90,7 +95,14 @@ function Navbar() {
                   <span className="navbar-account-email">
                     {user?.email}
                   </span>
-
+<Link
+  to="/orders"
+  className="navbar-orders-link"
+  onClick={() => setAccountMenuOpen(false)}
+>
+  <Package size={16} />
+  My Orders
+</Link>
                   <button
                     className="navbar-logout-button"
                     onClick={handleLogout}
@@ -163,7 +175,9 @@ function Navbar() {
               <span className="mobile-account-name">
                 Welcome, {user?.name}
               </span>
-
+<Link to="/orders" onClick={closeMenu}>
+  My Orders
+</Link>
               <button
                 className="mobile-logout-button"
                 onClick={handleLogout}

@@ -6,7 +6,25 @@ const Product = require("../models/Product");
 const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
+// Get orders belonging to the logged-in customer
+router.get("/my-orders", protect, async (req, res) => {
+  try {
+    const orders = await Order.find({
+      user: req.user.id,
+    }).sort({ createdAt: -1 });
 
+    res.status(200).json({
+      success: true,
+      count: orders.length,
+      orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Unable to retrieve your orders.",
+    });
+  }
+});
 // Create a new order
 router.post("/", protect, async (req, res) => {
   try {
